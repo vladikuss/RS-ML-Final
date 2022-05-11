@@ -1,0 +1,8 @@
+name: My Env
+dependencies:
+  - numpy
+  - pandas
+  - pip:
+    - comet_ml
+    - utils
+    - websockets
