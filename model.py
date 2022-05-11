@@ -1,14 +1,14 @@
 import pandas as pd
-from comet_ml import Experiment
 
+from comet_ml import Experiment
 experiment = Experiment(
-    api_key="lpFixqrYj9JT21PTd3XaoHgHm",
+    api_key="vDQl1ypFBK2U8lhpGHfeRnADG",
     project_name="general",
-    workspace="bichoshka",
+    workspace="vladikuss",
 )
 
 from preprocess import *
-#import Forest as f
+import Forest as f
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.linear_model import PassiveAggressiveClassifier
@@ -20,9 +20,9 @@ from sklearn.model_selection import RandomizedSearchCV
 cv = RepeatedStratifiedKFold(n_splits=5, n_repeats=5, random_state=451)
 final = []
 def low_fit(model):
-    model.fit(x_train_sc, y_train)
+    model.fit(x_train_sc, y_train) #фит
 
-    y_pred=model.predict(x_test_sc)
+    y_pred=model.predict(x_test_sc)#предсказание
 
     score=accuracy_score(y_test, y_pred)
     score_train = accuracy_score(y_train, model.predict(x_train_sc))
@@ -45,7 +45,7 @@ experiment.end()
 #%%
 from sklearn.ensemble import AdaBoostClassifier
 ada = AdaBoostClassifier(base_estimator=RF, n_estimators=47, learning_rate=1.448551724137931, algorithm='SAMME.R', random_state=451)
-#ada = AdaBoostClassifier(base_estimator = RandomForestClassifier())
+ada = AdaBoostClassifier(base_estimator = RandomForestClassifier())
 low_fit(ada)
 experiment.end()
 #%%
