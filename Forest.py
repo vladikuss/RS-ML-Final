@@ -1,14 +1,14 @@
 #%%
+import numpy as np
+from scipy.stats import loguniform
+from preprocess import X_sc, y
+from sklearn.ensemble import AdaBoostClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import RepeatedStratifiedKFold
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
-from scipy.stats import loguniform
-from preprocess import X_sc, y
-import numpy as np
-from sklearn.ensemble import AdaBoostClassifier
 
 cv = RepeatedStratifiedKFold(n_splits=5, n_repeats=3, random_state=451)
 
@@ -27,6 +27,7 @@ rf_params = result.best_params_
 print('Best Score: %s' % result.best_score_)
 print('Best Hyperparameters: %s' % result.best_params_)
 #%%
+
 model = AdaBoostClassifier(base_estimator=RandomForestClassifier(n_estimators=325, max_features='sqrt', max_depth=38, criterion='entropy', n_jobs=-1, random_state=451))
 space = dict()
 space['n_estimators'] = range(1,50)
