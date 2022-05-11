@@ -1,11 +1,12 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-
 import numpy as np
+
 df = pd.read_csv('data/train.csv', index_col='Id')
 X = df.drop(['Cover_Type'], axis=1)
 y = df.Cover_Type
+
 x_train, x_test, y_train, y_test = train_test_split(X,y, test_size=0.2, random_state=451)
 
 column_names = ['Elevation', 'Slope', 'Horizontal_Distance_To_Hydrology', 'Vertical_Distance_To_Hydrology',
