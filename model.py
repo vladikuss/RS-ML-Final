@@ -1,5 +1,3 @@
-import pandas as pd
-
 from comet_ml import Experiment
 experiment = Experiment(
     api_key="vDQl1ypFBK2U8lhpGHfeRnADG",
@@ -7,8 +5,6 @@ experiment = Experiment(
     workspace="vladikuss",
 )
 
-from preprocess import *
-import Forest as f
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.linear_model import PassiveAggressiveClassifier
@@ -16,12 +12,14 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import RepeatedStratifiedKFold
 from sklearn.metrics import accuracy_score, roc_auc_score, f1_score
 from sklearn.model_selection import RandomizedSearchCV
+from preprocess import *
+import Forest as f
+import pandas as pd
 
 cv = RepeatedStratifiedKFold(n_splits=5, n_repeats=5, random_state=451)
 final = []
 def low_fit(model):
     model.fit(x_train_sc, y_train) 
-
     y_pred=model.predict(x_test_sc)
 
     score=accuracy_score(y_test, y_pred)
@@ -36,7 +34,6 @@ def low_fit(model):
 
     metrics = {"Accuracy":score, 'ROC AUC':roc, 'F1':fscore}
     experiment.log_metrics(metrics)
-
 
 #%%
 RF = RandomForestClassifier(n_estimators=295, max_features='auto', max_depth=43, criterion='entropy', n_jobs=-1, random_state=451)
